@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
+    <!-- 1. Añadimos el CSS de Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
 
@@ -25,18 +27,27 @@
             <div class="section-title">
                 <h2>Momentos Mágicos con Globos</h2>
             </div>
-            <div class="section-content layout-1">
-                <div class="product-card featured">
-                    <img src="assets/img/arco-globos.png" alt="Impresionante arco de globos orgánico">
-                    <h3>Arco Orgánico Personalizado</h3>
-                    <p class="product-description">El punto focal perfecto para entradas o mesas principales. Colores y tamaño 100% a tu elección.</p>
-                    <p class="product-price">Desde S/150.00</p>
+            <!-- 1. Reemplazamos el layout antiguo por el nuevo layout de lista -->
+            <div class="list-layout">
+                <div class="list-card">
+                    <div class="list-card__image">
+                        <img src="assets/img/arco-globos.png" alt="Impresionante arco de globos orgánico">
+                    </div>
+                    <div class="list-card__content">
+                        <h3>Arco Orgánico Personalizado</h3>
+                        <p class="product-description">El punto focal perfecto para entradas o mesas principales. Colores y tamaño 100% a tu elección.</p>
+                        <p class="product-price">Desde S/150.00</p>
+                    </div>
                 </div>
-                <div class="product-card">
-                    <img src="assets/img/Globos de Helio_simple.png" alt="Bouquet de globos con helio">
-                    <h3>Bouquet de Globos con Helio</h3>
-                    <p class="product-description">Un detalle flotante que añade altura y color a cualquier rincón.</p>
-                    <p class="product-price">S/45.00</p>
+                <div class="list-card">
+                    <div class="list-card__image">
+                        <img src="assets/img/Globos de Helio_simple.png" alt="Bouquet de globos con helio">
+                    </div>
+                    <div class="list-card__content">
+                        <h3>Bouquet de Globos con Helio</h3>
+                        <p class="product-description">Un detalle flotante que añade altura y color a cualquier rincón.</p>
+                        <p class="product-price">S/45.00</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -45,25 +56,37 @@
             <div class="section-title">
                 <h2>Centros de Mesa que Enamoran</h2>
             </div>
-            <div class="section-content layout-2">
-                <div class="product-card">
-                    <img src="assets/img/mesa-gala.png" alt="Centro de mesa alto con flores">
-                    <h3>Centro de Mesa Alto Floral</h3>
-                    <p class="product-description">Elegancia y sofisticación para bodas y eventos de gala. Flores de temporada.</p>
-                    <p class="product-price">S/80.00 / unidad</p>
+            <!-- 2. Reemplazamos el layout antiguo con la estructura de Swiper -->
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="product-card">
+                            <img src="assets/img/mesa-gala.png" alt="Centro de mesa alto con flores">
+                            <h3>Centro de Mesa Alto Floral</h3>
+                            <p class="product-description">Elegancia y sofisticación para bodas y eventos de gala. Flores de temporada.</p>
+                            <p class="product-price">S/80.00 / unidad</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card">
+                            <img src="assets/img/arreglo-rustico-velas.jpeg" alt="Centro de mesa rústico con velas">
+                            <h3>Arreglo Rústico con Velas</h3>
+                            <p class="product-description">Un toque cálido y acogedor con elementos naturales y luz de vela.</p>
+                            <p class="product-price">S/55.00 / unidad</p>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <div class="product-card">
+                            <img src="assets/img/arreglo tematicos niño azul.jpg" alt="Centro de mesa temático infantil">
+                            <h3>Centro de Mesa Temático</h3>
+                            <p class="product-description">Damos vida al personaje favorito de tu hijo en el centro de la fiesta.</p>
+                            <p class="product-price">S/50.00 / unidad</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="product-card">
-                    <img src="assets/img/arreglo-rustico-velas.jpeg" alt="Centro de mesa rústico con velas">
-                    <h3>Arreglo Rústico con Velas</h3>
-                    <p class="product-description">Un toque cálido y acogedor con elementos naturales y luz de vela.</p>
-                    <p class="product-price">S/55.00 / unidad</p>
-                </div>
-                 <div class="product-card">
-                    <img src="assets/img/arreglo tematicos niño azul.jpg" alt="Centro de mesa temático infantil">
-                    <h3>Centro de Mesa Temático</h3>
-                    <p class="product-description">Damos vida al personaje favorito de tu hijo en el centro de la fiesta.</p>
-                    <p class="product-price">S/50.00 / unidad</p>
-                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </section>
 
@@ -71,24 +94,35 @@
              <div class="section-title">
                 <h2>Candy Bar y Postres</h2>
             </div>
-            <div class="section-content layout-3">
-                <div class="product-card featured">
-                    <img src="assets/img/candy-bar.jpeg" alt="Montaje completo de Candy Bar">
-                    <h3>Montaje Completo de Candy Bar</h3>
-                    <p class="product-description">Diseño, montaje y postres. Una estación dulce que tus invitados no olvidarán.</p>
-                    <p class="product-price">Consultar Paquetes</p>
+            <!-- Unificamos todos los productos de esta sección en el layout de lista -->
+            <div class="list-layout">
+                <div class="list-card">
+                    <div class="list-card__image">
+                        <img src="assets/img/candy-bar.jpeg" alt="Montaje completo de Candy Bar">
+                    </div>
+                    <div class="list-card__content">
+                        <h3>Montaje Completo de Candy Bar</h3>
+                        <p class="product-description">Diseño, montaje y postres. Una estación dulce que tus invitados no olvidarán.</p>
+                        <p class="product-price">Consultar</p>
+                    </div>
                 </div>
-                <div class="product-card-small-grid">
-                    <div class="product-card">
+                <div class="list-card">
+                    <div class="list-card__image">
                         <img src="assets/img/cupcakes tematicos.webp" alt="Cupcakes temáticos">
+                    </div>
+                    <div class="list-card__content">
                         <h3>Cupcakes Temáticos</h3>
-                        <p class="product-description">Decenas de sabores y diseños.</p>
+                        <p class="product-description">Decenas de sabores y diseños para complementar tu mesa dulce.</p>
                         <p class="product-price">S/2.50 / unidad</p>
                     </div>
-                     <div class="product-card">
+                </div>
+                <div class="list-card">
+                    <div class="list-card__image">
                         <img src="assets/img/cake-pops-decorados.jpeg" alt="Cake pops decorados">
+                    </div>
+                    <div class="list-card__content">
                         <h3>Cake Pops Decorados</h3>
-                        <p class="product-description">Bocaditos de pastel irresistibles.</p>
+                        <p class="product-description">Bocaditos de pastel irresistibles y personalizados para tu evento.</p>
                         <p class="product-price">S/2.00 / unidad</p>
                     </div>
                 </div>
@@ -99,19 +133,28 @@
              <div class="section-title">
                 <h2>Alquiler de Mobiliario</h2>
             </div>
-            <div class="section-content layout-4">
-                 <div class="product-card">
-                    <img src="assets/img/Las-mejores-sillas-Tiffany.jpg" alt="Sillas Tiffany blancas">
-                    <h3>Sillas Tiffany</h3>
-                    <p class="product-description">El toque de elegancia clásico para cualquier tipo de evento. Color blanco o dorado.</p>
-                    <p class="product-price">S/5.00 / día</p>
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                     <div class="swiper-slide">
+                        <div class="product-card">
+                            <img src="assets/img/Las-mejores-sillas-Tiffany.jpg" alt="Sillas Tiffany blancas">
+                            <h3>Sillas Tiffany</h3>
+                            <p class="product-description">El toque de elegancia clásico para cualquier tipo de evento. Color blanco o dorado.</p>
+                            <p class="product-price">S/5.00 / día</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card">
+                            <img src="assets/img/panel de fondo dorado.jpg" alt="Paneles de fondo para fotos">
+                            <h3>Paneles de Fondo (Backdrops)</h3>
+                            <p class="product-description">Crea el escenario perfecto para tus fotos. Diseños redondos, rectangulares y temáticos.</p>
+                            <p class="product-price">Desde S/90.00</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="product-card">
-                    <img src="assets/img/panel de fondo dorado.jpg" alt="Paneles de fondo para fotos">
-                    <h3>Paneles de Fondo (Backdrops)</h3>
-                    <p class="product-description">Crea el escenario perfecto para tus fotos. Diseños redondos, rectangulares y temáticos.</p>
-                    <p class="product-price">Desde S/90.00</p>
-                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </section>
 
@@ -119,12 +162,16 @@
              <div class="section-title">
                 <h2>Fiestas Infantiles Temáticas</h2>
             </div>
-            <div class="section-content layout-5">
-                <div class="product-card">
-                    <img src="assets/img/decoración tematica dinosaurios.webp" alt="Decoración de dinosaurios">
-                    <h3>Paquete Jurásico</h3>
-                    <p class="product-description">¡Una aventura con dinosaurios! Incluye fondo, menaje y decoración de mesa.</p>
-                    <p class="product-price">S/250.00</p>
+            <div class="list-layout">
+                <div class="list-card">
+                    <div class="list-card__image">
+                        <img src="assets/img/decoración tematica dinosaurios.webp" alt="Decoración de dinosaurios">
+                    </div>
+                    <div class="list-card__content">
+                        <h3>Paquete Jurásico</h3>
+                        <p class="product-description">¡Una aventura con dinosaurios! Incluye fondo, menaje y decoración de mesa.</p>
+                        <p class="product-price">S/250.00</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -139,5 +186,41 @@
         </a>
     </footer>
 
+    <!-- 3. Añadimos el JS de Swiper.js y nuestro script de inicialización -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Seleccionamos todos los contenedores de carrusel en la página
+        const swipers = document.querySelectorAll('.swiper');
+
+        // Iteramos sobre cada uno para inicializarlo individualmente
+        swipers.forEach(function(swiperElement) {
+            new Swiper(swiperElement, {
+                loop: true, // Para que el carrusel sea infinito
+                slidesPerView: 1, // Por defecto (móvil) se muestra 1
+                spaceBetween: 30, // Espacio entre tarjetas
+
+                // Paginación (los puntitos de abajo)
+                pagination: {
+                    el: swiperElement.querySelector('.swiper-pagination'),
+                    clickable: true,
+                },
+
+                // Flechas de navegación
+                navigation: {
+                    nextEl: swiperElement.querySelector('.swiper-button-next'),
+                    prevEl: swiperElement.querySelector('.swiper-button-prev'),
+                },
+
+                // Configuración responsive (para pantallas más grandes)
+                breakpoints: {
+                    // A partir de 768px de ancho...
+                    768: {
+                        slidesPerView: 2, // ...mostramos 2 tarjetas
+                        spaceBetween: 30
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

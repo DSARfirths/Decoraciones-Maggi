@@ -129,23 +129,73 @@ img {
     color: var(--color-accent-1);
 }
 
-/* LAYOUTS ASIMÉTRICOS */
-.section-content {
+/* ------------------- */
+/* LAYOUT DE LISTA VERTICAL */
+/* ------------------- */
+.list-layout {
     display: grid;
     gap: 30px;
 }
 
-/* Layout 1: 1 destacado, 1 normal */
-.layout-1 { grid-template-columns: 2fr 1fr; align-items: start; }
-/* Layout 2: 3 columnas iguales */
-.layout-2 { grid-template-columns: repeat(3, 1fr); }
-/* Layout 3: 1 destacado, 1 contenedor de 2 pequeños */
-.layout-3 { grid-template-columns: 1.5fr 1fr; align-items: center; }
-.product-card-small-grid { display: grid; gap: 20px; }
-/* Layout 4: 2 columnas iguales */
-.layout-4 { grid-template-columns: 1fr 1fr; }
-/* Layout 5: 1 columna centrada */
-.layout-5 .product-card { max-width: 500px; margin: 0 auto; }
+.list-card {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    overflow: hidden; /* Asegura que la imagen respete el borde redondeado */
+}
+
+.list-card__image {
+    flex-basis: 35%; /* La imagen ocupa el 35% del ancho */
+    flex-shrink: 0;
+}
+
+.list-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0; /* Quitamos el borde de la imagen para que llene su contenedor */
+}
+
+.list-card__content {
+    flex-grow: 1;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* Reutilizamos los estilos de título, descripción y precio, pero dentro del nuevo contexto */
+.list-card__content h3 { font-size: 1.6rem; margin-bottom: 10px; }
+.list-card__content .product-description { flex-grow: 1; } /* Empuja el precio al fondo */
+.list-card__content .product-price { text-align: right; font-size: 1.4rem; }
+
+
+
+/* ------------------- */
+/* CARRUSEL (SWIPER.JS) */
+/* ------------------- */
+.swiper {
+    width: 100%;
+    padding-bottom: 50px; /* Espacio para la paginación */
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-slide {
+    height: auto; /* Permite que el contenido defina la altura */
+    display: flex;
+}
+
+/* Estilo de flechas de navegación */
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--color-accent-1);
+}
+
+/* Estilo de paginación */
+.swiper-pagination-bullet-active {
+    background-color: var(--color-accent-1);
+}
 
 
 /* ------------------- */
@@ -169,8 +219,11 @@ img {
     .intro-text { font-size: 1rem; }
     .section-title h2 { font-size: 2rem; }
     
-    /* Apila todos los layouts en una sola columna */
-    .layout-1, .layout-2, .layout-3, .layout-4 {
-        grid-template-columns: 1fr;
+    /* Apila la tarjeta de lista en móvil */
+    .list-card {
+        flex-direction: column;
     }
+
+    .list-card__content { padding: 20px; }
+    .list-card__content .product-price { text-align: left; margin-top: 10px; }
 }
