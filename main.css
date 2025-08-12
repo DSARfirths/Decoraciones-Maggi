@@ -1,0 +1,176 @@
+/* ------------------- */
+/* VARIABLES Y GLOBALES */
+/* ------------------- */
+:root {
+    --color-background: #EAC9C1;
+    --color-text: #000000;
+    --color-white: #FFFFFF;
+    --color-accent-1: #E53A7A; /* Rosa Festivo */
+    --font-brand: 'Poppins', sans-serif;
+    --font-descriptor: 'Dancing Script', cursive;
+    --font-body: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* ------------------- */
+/* ENCABEZADO Y LOGO    */
+/* ------------------- */
+.site-header {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.logo-link {
+    display: inline-block; /* Permite centrar el enlace/imagen */
+    margin-bottom: 20px;
+}
+
+.logo-image {
+    max-width: 250px;
+    height: auto;
+}
+
+.intro-text {
+    font-weight: 300;
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto; /* Centra el texto */
+    line-height: 1.8;
+}
+
+/* ------------------- */
+/* ESTRUCTURA DEL CATÁLOGO */
+/* ------------------- */
+.catalog-section {
+    padding: 50px 5%;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 2.5rem;
+    display: inline-block;
+    position: relative;
+}
+/* Línea decorativa debajo del título */
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 3px;
+    background-color: var(--color-accent-1);
+    bottom: -10px;
+    left: 20%;
+}
+
+/* TARJETA DE PRODUCTO ESTÁNDAR */
+.product-card {
+    background-color: rgba(255, 255, 255, 0.5); /* Blanco semitransparente para integrar */
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    /* --- Añadido para uniformizar altura y alinear contenido --- */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card img {
+    margin-bottom: 15px;
+    /* --- Añadido para uniformizar tamaño de imagen --- */
+    aspect-ratio: 4 / 3; /* Proporción 4:3. Puedes cambiarla a 16/9 o 1/1 */
+    object-fit: cover;   /* Recorta la imagen para que encaje sin deformarse */
+}
+
+.product-card h3 {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.product-card .product-description {
+    font-weight: 300;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    /* --- Añadido para que la descripción ocupe el espacio sobrante --- */
+    flex-grow: 1; /* Empuja el precio hacia abajo, alineando todos los precios */
+}
+
+.product-card .product-price {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--color-accent-1);
+}
+
+/* LAYOUTS ASIMÉTRICOS */
+.section-content {
+    display: grid;
+    gap: 30px;
+}
+
+/* Layout 1: 1 destacado, 1 normal */
+.layout-1 { grid-template-columns: 2fr 1fr; align-items: start; }
+/* Layout 2: 3 columnas iguales */
+.layout-2 { grid-template-columns: repeat(3, 1fr); }
+/* Layout 3: 1 destacado, 1 contenedor de 2 pequeños */
+.layout-3 { grid-template-columns: 1.5fr 1fr; align-items: center; }
+.product-card-small-grid { display: grid; gap: 20px; }
+/* Layout 4: 2 columnas iguales */
+.layout-4 { grid-template-columns: 1fr 1fr; }
+/* Layout 5: 1 columna centrada */
+.layout-5 .product-card { max-width: 500px; margin: 0 auto; }
+
+
+/* ------------------- */
+/* FOOTER Y CTA         */
+/* ------------------- */
+.site-footer-cta {
+    background-color: var(--color-text);
+    color: var(--color-white);
+    text-align: center;
+    padding: 60px 20px;
+}
+.site-footer-cta h2 { font-family: var(--font-brand); font-weight: 700; font-size: 2.5rem; }
+.site-footer-cta p { font-weight: 300; margin-bottom: 30px; }
+.cta-button { display: inline-block; background-color: var(--color-accent-1); color: var(--color-white); padding: 15px 35px; border-radius: 50px; text-decoration: none; font-family: var(--font-brand); font-weight: 700; transition: transform 0.2s ease; }
+.cta-button:hover { transform: scale(1.05); }
+
+/* ------------------- */
+/* DISEÑO RESPONSIVE (MÓVIL) */
+/* ------------------- */
+@media (max-width: 768px) {
+    .intro-text { font-size: 1rem; }
+    .section-title h2 { font-size: 2rem; }
+    
+    /* Apila todos los layouts en una sola columna */
+    .layout-1, .layout-2, .layout-3, .layout-4 {
+        grid-template-columns: 1fr;
+    }
+}
