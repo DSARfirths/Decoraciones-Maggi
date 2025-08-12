@@ -1,233 +1,335 @@
 /* ------------------- */
-/* VARIABLES Y GLOBALES */
+/* 1. HERO CAROUSEL    */
 /* ------------------- */
-:root {
-    --color-background: #EAC9C1;
-    --color-text: #000000;
-    --color-white: #FFFFFF;
-    --color-accent-1: #E53A7A; /* Rosa Festivo */
-    --font-brand: 'Poppins', sans-serif;
-    --font-descriptor: 'Dancing Script', cursive;
-    --font-body: 'Poppins', sans-serif;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--font-body);
-    background-color: var(--color-background);
-    color: var(--color-text);
-    line-height: 1.6;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 8px;
-}
-
-/* ------------------- */
-/* ENCABEZADO Y LOGO    */
-/* ------------------- */
-.site-header {
-    padding: 40px 20px;
-    text-align: center;
-}
-
-.logo-link {
-    display: inline-block; /* Permite centrar el enlace/imagen */
-    margin-bottom: 20px;
-}
-
-.logo-image {
-    max-width: 250px;
-    height: auto;
-}
-
-.intro-text {
-    font-weight: 300;
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto; /* Centra el texto */
-    line-height: 1.8;
-}
-
-/* ------------------- */
-/* ESTRUCTURA DEL CATÁLOGO */
-/* ------------------- */
-.catalog-section {
-    padding: 50px 5%;
-    margin-bottom: 40px;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.section-title h2 {
-    font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: 2.5rem;
-    display: inline-block;
+.hero-section {
     position: relative;
+    width: 100%;
+    height: 90vh; /* Ocupa el 90% de la altura de la pantalla */
+    color: var(--color-white);
 }
-/* Línea decorativa debajo del título */
-.section-title h2::after {
+
+.hero-swiper .swiper-slide {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra todo el espacio sin deformarse */
+    z-index: 1;
+}
+
+/* Capa oscura sobre la imagen para legibilidad del texto */
+.hero-swiper .swiper-slide::after {
     content: '';
     position: absolute;
-    width: 60%;
-    height: 3px;
-    background-color: var(--color-accent-1);
-    bottom: -10px;
-    left: 20%;
-}
-
-/* COMPONENTE: PRECIO DEL PRODUCTO (Estilo base) */
-.product-price {
-    font-family: var(--font-brand);
-    font-weight: 700;
-    color: var(--color-accent-1);
-}
-
-/* TARJETA DE PRODUCTO ESTÁNDAR */
-.product-card {
-    background-color: rgba(255, 255, 255, 0.5); /* Blanco semitransparente para integrar */
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    /* --- Añadido para uniformizar altura y alinear contenido --- */
-    display: flex;
-    flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 2;
 }
 
-.product-card img {
-    margin-bottom: 15px;
-    /* --- Añadido para uniformizar tamaño de imagen --- */
-    aspect-ratio: 4 / 3; /* Proporción 4:3. Puedes cambiarla a 16/9 o 1/1 */
-    object-fit: cover;   /* Recorta la imagen para que encaje sin deformarse */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 20px;
 }
 
-.product-card h3 {
+.hero-title {
     font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: 1.4rem;
-    margin-bottom: 5px;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 6vw, 4.5rem); /* Tamaño de fuente adaptable */
+    text-transform: uppercase;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    line-height: 1.1;
 }
 
-.product-card .product-description {
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
     font-weight: 300;
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-    /* --- Añadido para que la descripción ocupe el espacio sobrante --- */
-    flex-grow: 1; /* Empuja el precio hacia abajo, alineando todos los precios */
+    margin-top: 10px;
+    margin-bottom: 30px;
+    max-width: 600px;
 }
 
-.product-card .product-price {
-    font-size: 1.3rem;
+/* Estilos para la paginación del carrusel */
+.hero-swiper .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.7);
+    width: 12px;
+    height: 12px;
 }
 
+.hero-swiper .swiper-pagination-bullet-active {
+    background: var(--color-accent-1);
+}
+
+
 /* ------------------- */
-/* LAYOUT DE LISTA VERTICAL */
+/* 2. CATEGORY SHOWCASE */
 /* ------------------- */
-.list-layout {
+.category-showcase {
+    padding: 80px 5%;
+}
+
+.category-grid {
     display: grid;
-    gap: 30px;
+    /* --- Magia responsiva: se ajusta automáticamente --- */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
 }
 
-.list-card {
-    display: flex;
-    background-color: rgba(255, 255, 255, 0.5);
+.category-card {
+    position: relative;
+    display: block;
+    overflow: hidden;
     border-radius: 10px;
-    overflow: hidden; /* Asegura que la imagen respete el borde redondeado */
+    aspect-ratio: 4 / 5; /* Proporción para tarjetas más altas que anchas */
+    text-decoration: none;
+    color: var(--color-white);
+    transition: transform 0.3s ease;
 }
 
-.list-card__image {
-    flex-basis: 35%; /* La imagen ocupa el 35% del ancho */
-    flex-shrink: 0;
+.category-card:hover {
+    transform: translateY(-10px); /* Efecto de levitación */
 }
 
-.list-card__image img {
+.category-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 0; /* Quitamos el borde de la imagen para que llene su contenedor */
+    transition: transform 0.4s ease;
 }
 
-.list-card__content {
-    flex-grow: 1;
-    padding: 25px;
+.category-card:hover img {
+    transform: scale(1.05); /* Sutil efecto de zoom */
+}
+
+/* Capa de gradiente para el título */
+.category-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+.category-card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    padding: 20px;
+    width: 100%;
+}
+
+.category-card-title h3 {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+}
+
+
+/* ------------------- */
+/* 3. VIDEO SHOWCASE   */
+/* ------------------- */
+.video-showcase {
+    padding: 80px 5%;
+    background-color: rgba(0,0,0,0.05); /* Un fondo ligeramente distinto */
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.video-container {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
-    text-align: left;
-}
-
-/* Reutilizamos los estilos de título, descripción y precio, pero dentro del nuevo contexto */
-.list-card__content h3 { font-size: 1.6rem; margin-bottom: 10px; }
-.list-card__content .product-description { flex-grow: 1; } /* Empuja el precio al fondo */
-.list-card__content .product-price { text-align: right; font-size: 1.4rem; } /* Hereda los estilos base de .product-price */
-
-
-
-/* ------------------- */
-/* CARRUSEL (SWIPER.JS) */
-/* ------------------- */
-.swiper {
-    width: 100%;
-    padding-bottom: 50px; /* Espacio para la paginación */
-    position: relative;
-    overflow: hidden;
-}
-
-.swiper-slide {
-    height: auto; /* Permite que el contenido defina la altura */
-    display: flex;
-}
-
-/* Estilo de flechas de navegación */
-.swiper-button-next,
-.swiper-button-prev {
-    color: var(--color-accent-1);
-}
-
-/* Estilo de paginación */
-.swiper-pagination-bullet-active {
-    background-color: var(--color-accent-1);
-}
-
-
-/* ------------------- */
-/* FOOTER Y CTA         */
-/* ------------------- */
-.site-footer-cta {
-    background-color: var(--color-text);
-    color: var(--color-white);
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    padding: 60px 20px;
+    color: var(--color-white);
+    padding: 20px;
 }
-.site-footer-cta h2 { font-family: var(--font-brand); font-weight: 700; font-size: 2.5rem; }
-.site-footer-cta p { font-weight: 300; margin-bottom: 30px; }
-.cta-button { display: inline-block; background-color: var(--color-accent-1); color: var(--color-white); padding: 15px 35px; border-radius: 50px; text-decoration: none; font-family: var(--font-brand); font-weight: 700; transition: transform 0.2s ease; }
-.cta-button:hover { transform: scale(1.05); }
+
+.video-overlay h3 {
+    font-family: var(--font-brand);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Estilo para botón con borde */
+.cta-button-outline {
+    background-color: transparent;
+    border: 2px solid var(--color-white);
+    color: var(--color-white);
+    padding: 10px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.cta-button-outline:hover {
+    background-color: var(--color-white);
+    color: var(--color-text);
+}
+
+
+/* =========================================== */
+/* === FASE 1: ESTILOS PARA HEADER Y MENÚ === */
+/* =========================================== */
 
 /* ------------------- */
-/* DISEÑO RESPONSIVE (MÓVIL) */
+/* HEADER Y MENÚ MÓVIL */
 /* ------------------- */
-@media (max-width: 768px) {
-    .intro-text { font-size: 1rem; }
-    .section-title h2 { font-size: 2rem; }
-    
-    /* Apila la tarjeta de lista en móvil */
-    .list-card {
-        flex-direction: column;
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.main-nav {
+    display: block; /* Visible por defecto en escritorio */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 700;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+/* Efecto de línea inferior animada */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent-1);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none; /* Oculto por defecto en escritorio */
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 22px;
+    position: relative;
+    z-index: 1001; /* Asegura que esté por encima de todo */
+}
+
+.hamburger-icon,
+.hamburger-icon::before,
+.hamburger-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-text);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-icon { top: 10px; }
+.hamburger-icon::before { top: -10px; }
+.hamburger-icon::after { top: 10px; }
+
+/* Animación de hamburguesa a 'X' */
+.menu-toggle.is-active .hamburger-icon {
+    background-color: transparent; /* La línea del medio desaparece */
+}
+.menu-toggle.is-active .hamburger-icon::before {
+    transform: translateY(10px) rotate(45deg);
+}
+.menu-toggle.is-active .hamburger-icon::after {
+    transform: translateY(-10px) rotate(-45deg);
+}
+
+
+/* Estilos para el menú cuando se ve en móvil */
+@media (max-width: 992px) { /* Punto de quiebre para tablets y móviles */
+    .menu-toggle {
+        display: block;
     }
 
-    .list-card__content { padding: 20px; }
-    .list-card__content .product-price { text-align: left; margin-top: 10px; }
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Empieza fuera de la pantalla */
+        width: 70%;
+        height: 100vh;
+        background-color: var(--color-white);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        padding-top: 100px;
+        transition: right 0.4s ease-in-out;
+        z-index: 1000;
+    }
+
+    .main-nav.is-active {
+        right: 0; /* Entra en la pantalla */
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 35px;
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+    }
 }
