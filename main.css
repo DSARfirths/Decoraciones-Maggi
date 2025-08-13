@@ -693,7 +693,6 @@ img {
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 250px; /* Altura base de cada "celda" de la grilla */
     gap: 20px;
 }
 
@@ -710,16 +709,16 @@ img {
     transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-/* Modificadores de tamaño para el look de revista */
-.gallery-item.item-large {
-    grid-column: span 2;
-    grid-row: span 2;
+/* Modificadores de TAMAÑO Y PROPORCIÓN */
+.gallery-item.item-landscape {
+    aspect-ratio: 16 / 9; /* Proporción panorámica */
+    grid-column: span 2;  /* Ocupa dos columnas */
 }
-.gallery-item.item-wide {
-    grid-column: span 2;
+.gallery-item.item-portrait {
+    aspect-ratio: 4 / 5; /* Proporción vertical */
 }
-.gallery-item.item-tall {
-    grid-row: span 2;
+.gallery-item.item-square {
+    aspect-ratio: 1 / 1; /* Proporción cuadrada */
 }
 
 /* Overlay que aparece al pasar el mouse */
@@ -734,7 +733,7 @@ img {
     padding: 25px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Alinea el contenido abajo */
+    justify-content: flex-end;
     opacity: 0;
     transition: opacity 0.4s ease;
 }
@@ -771,7 +770,7 @@ img {
     border-radius: 50px;
     text-decoration: none;
     font-weight: 700;
-    align-self: flex-start; /* Se alinea a la izquierda */
+    align-self: flex-start;
     transition: transform 0.2s ease;
 }
 .cta-button-small:hover {
@@ -780,10 +779,8 @@ img {
 
 /* Ajustes para móvil */
 @media (max-width: 768px) {
-    .gallery-item.item-large,
-    .gallery-item.item-wide,
-    .gallery-item.item-tall {
+    .gallery-item.item-landscape {
         grid-column: span 1; /* En móvil, todos los items ocupan 1 columna */
-        grid-row: span 1;
+        aspect-ratio: 1 / 1; /* Hacemos que los panorámicos sean cuadrados en móvil */
     }
 }
