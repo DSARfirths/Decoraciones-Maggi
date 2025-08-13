@@ -1,12 +1,17 @@
+/* =========================================== */
+/* ===         ARCHIVO MAIN.CSS FINAL        === */
+/* =========================================== */
+
 /* ------------------- */
-/* 1. VARIABLES Y GLOBALES*/
+/* 1. VARIABLES Y GLOBALES */
 /* ------------------- */
 :root {
-    --color-background: #ffffff;
+    --color-background: #FFFFFF;
     --color-text: #000000;
     --color-white: #FFFFFF;
-    --color-accent-1: #EAC9C1; /* Rosa Festivo */
-    --color-footer-bg: #1a1a1a; /* Un negro un poco más suave */
+    --color-accent-1: #EAC9C1;
+    --color-accent-strong: #E53A7A;
+    --color-footer-bg: #1a1a1a;
     --color-footer-text: #a0a0a0;
     --font-brand: 'Poppins', sans-serif;
     --font-descriptor: 'Dancing Script', cursive;
@@ -57,9 +62,8 @@ img {
     transform: translateX(-50%);
 }
 
-
 /* ------------------- */
-/* 2. HEADER Y MENÚ MÓVIL */
+/* 2. HEADER Y MENÚ MÓVIL (CORREGIDO) */
 /* ------------------- */
 .main-header {
     padding: 20px 5%;
@@ -68,21 +72,16 @@ img {
 
 .header-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
-}
-
-.logo-container {
-    flex-grow: 1; /* Permite que el logo se centre */
-    display: flex;
-    justify-content: center;
+    position: relative;
 }
 
 .logo-image {
-    max-width: 120px; /* Reducimos aún más el tamaño */
-    margin-left: auto; /* Truco para centrar cuando el botón de hamburguesa está presente */
+    max-width: 120px;
+    margin: 0;
 }
 
 .menu-toggle {
@@ -92,15 +91,17 @@ img {
     cursor: pointer;
     width: 30px;
     height: 22px;
-    position: relative;
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 1001;
-    margin-left: auto; /* Asegura que se alinee a la derecha */
 }
 
 .main-nav {
     display: block;
     width: 100%;
-    margin-top: 15px; /* Espacio entre el logo y el menú */
+    margin-top: 15px;
 }
 
 .nav-links {
@@ -129,7 +130,7 @@ img {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--color-accent-1);
+    background-color: var(--color-accent-strong);
     transition: width 0.3s ease;
 }
 
@@ -137,13 +138,48 @@ img {
     width: 100%;
 }
 
-/* Estilos del Menú Desplegable */
+.hamburger-icon,
+.hamburger-icon::before,
+.hamburger-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-text);
+    border-radius: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.hamburger-icon {
+    top: 10px;
+}
+
+.hamburger-icon::before {
+    top: -10px;
+}
+
+.hamburger-icon::after {
+    top: 10px;
+}
+
+.menu-toggle.is-active .hamburger-icon {
+    background-color: transparent;
+}
+
+.menu-toggle.is-active .hamburger-icon::before {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.menu-toggle.is-active .hamburger-icon::after {
+    transform: translateY(-10px) rotate(-45deg);
+}
+
 .dropdown {
     position: relative;
 }
 
 .dropdown-menu {
-    display: none; /* Oculto por defecto */
+    display: none;
     position: absolute;
     top: 120%;
     left: 50%;
@@ -152,13 +188,13 @@ img {
     list-style: none;
     padding: 10px 0;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    width: 200px; /* Ancho del menú desplegable */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 200px;
     z-index: 1100;
 }
 
 .dropdown:hover .dropdown-menu {
-    display: block; /* Se muestra al pasar el mouse */
+    display: block;
 }
 
 .dropdown-menu li a {
@@ -168,7 +204,7 @@ img {
 }
 
 .dropdown-menu li a::after {
-    display: none; /* Quitamos el efecto de línea en el submenú */
+    display: none;
 }
 
 .dropdown-toggle .fa-chevron-down {
@@ -181,13 +217,30 @@ img {
 }
 
 /* ------------------- */
-/* 3. HERO CAROUSEL    */
+/* 3. HERO CAROUSEL (CORREGIDO) */
 /* ------------------- */
 .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh;
+    /* ESTA ES LA REGLA CLAVE: Altura mínima para desktop */
+    min-height: 700px;
+    /* También usamos vh para que en pantallas más altas, se siga viendo bien */
+    height: 95vh;
     color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Evita que cualquier elemento se desborde */
+}
+
+.hero-swiper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Asegura que el carrusel llene el .hero-section */
 }
 
 .hero-swiper .swiper-slide {
@@ -205,9 +258,11 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* La imagen cubre todo el espacio sin deformarse */
     z-index: 1;
 }
 
+/* Capa oscura sobre la imagen para legibilidad del texto */
 .hero-swiper .swiper-slide::after {
     content: '';
     position: absolute;
@@ -231,7 +286,7 @@ img {
     font-weight: 900;
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     text-transform: uppercase;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     line-height: 1.1;
 }
 
@@ -250,20 +305,16 @@ img {
 }
 
 .hero-swiper .swiper-pagination-bullet-active {
-    background: var(--color-accent-1);
+    background: var(--color-accent-strong);
 }
 
 /* ------------------- */
-/* 4. CATEGORY SHOWCASE */
+/* 4. CATEGORY SHOWCASE (CORREGIDO) */
 /* ------------------- */
 .category-showcase {
     padding: 80px 5%;
-    position: relative; /* <<< AÑADIDO: Necesario para que funcione el z-index */
-    z-index: 5; /* <<< AÑADIDO: Asegura que esté por encima del carrusel */
-    margin-top: -100px; /* <<< AÑADIDO: Sube la sección para que se monte sobre el hero */
-    background-color: var(--color-background); /* <<< AÑADIDO: Asegura que tenga fondo propio */
-    border-top-left-radius: 40px; /* <<< AÑADIDO: Curva la esquina superior izquierda */
-    border-top-right-radius: 40px; /* <<< AÑADIDO: Curva la esquina superior derecha */
+    position: static;
+    margin-top: 0;
 }
 
 .category-grid {
@@ -305,7 +356,7 @@ img {
     left: 0;
     width: 100%;
     height: 70%;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 }
 
 .category-card-title {
@@ -323,21 +374,21 @@ img {
     font-size: 1.8rem;
     text-transform: uppercase;
 }
-/* ------------------- */
-/* 5. VIDEO SHOWCASE (NUEVA VERSIÓN) */
-/* ------------------- */
 
+/* ------------------- */
+/* 5. VIDEO SHOWCASE */
+/* ------------------- */
 .video-showcase {
     padding: 80px 5%;
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     margin-bottom: 80px;
 }
 
 .video-showcase .swiper {
     width: 100%;
-    max-width: 400px; /* Ancho máximo para el formato vertical, como en un móvil */
+    max-width: 400px;
     margin: 0 auto;
-    padding: 0 40px; /* Espacio para que las flechas no se peguen */
+    padding: 0 40px;
 }
 
 .video-showcase .swiper-slide {
@@ -354,7 +405,7 @@ img {
 .video-card {
     position: relative;
     width: 100%;
-    aspect-ratio: 9 / 16; /* Formato vertical TikTok */
+    aspect-ratio: 9 / 16;
     border-radius: 20px;
     overflow: hidden;
     background-color: #000;
@@ -374,13 +425,13 @@ img {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Alinea los elementos arriba y abajo */
+    justify-content: space-between;
     padding: 20px;
-    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 40%, transparent 80%, rgba(0,0,0,0.4) 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 40%, transparent 80%, rgba(0, 0, 0, 0.4) 100%);
 }
 
 .unmute-button {
-    align-self: flex-end; /* Coloca el botón en la esquina superior derecha */
+    align-self: flex-end;
     background: rgba(0, 0, 0, 0.5);
     color: #fff;
     border: none;
@@ -396,13 +447,15 @@ img {
 
 .video-card-cta {
     color: #fff;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
+
 .video-card-cta h4 {
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
 }
+
 .video-card-cta a {
     color: #fff;
     text-decoration: none;
@@ -414,10 +467,56 @@ img {
     color: var(--color-text);
 }
 
-/* 6. FOOTER Y CTA     */
 /* ------------------- */
-.main-footer {
-    /* Estilos generales del footer si los necesitas */
+/* 6. FOOTER Y SECCIONES RELACIONADAS */
+/* ------------------- */
+.location-section {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--color-accent-1);
+}
+
+.location-content,
+.location-map {
+    width: 50%;
+    min-height: 400px;
+}
+
+.location-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.location-title {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.directions-button {
+    display: inline-block;
+    background-color: var(--color-accent-strong);
+    color: var(--color-white);
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 20px;
+    transition: transform 0.2s ease;
+}
+
+.directions-button:hover {
+    transform: scale(1.05);
+}
+
+.location-map iframe {
+    width: 100%;
+    height: 100%;
 }
 
 .footer-cta-container {
@@ -441,17 +540,22 @@ img {
 .cta-button {
     display: inline-block;
     background-color: var(--color-accent-1);
-    color: var(--color-white);
+    color: var(--color-text);
     padding: 15px 35px;
     border-radius: 50px;
     text-decoration: none;
     font-family: var(--font-brand);
     font-weight: 700;
-    transition: transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .cta-button:hover {
     transform: scale(1.05);
+}
+
+.cta-button:active {
+    background-color: var(--color-accent-strong);
+    transform: scale(0.98);
 }
 
 .footer-bottom {
@@ -469,69 +573,18 @@ img {
 .social-links a {
     color: var(--color-white);
     text-decoration: none;
-    margin: 0 15px; /* Más espacio entre iconos */
-    font-size: 1.5rem; /* Aumenta el tamaño del icono */
+    margin: 0 15px;
+    font-size: 1.5rem;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .social-links a:hover {
-    color: var(--color-accent-1);
-    transform: translateY(-3px); /* Efecto de levitación */
+    color: var(--color-accent-strong);
+    transform: translateY(-3px);
 }
 
 /* ------------------- */
-/* 6. SECCIÓN DE UBICACIÓN */    
-/* ------------------- */
-.location-section {
-    display: flex;
-    flex-wrap: wrap;
-    background-color: var(--color-accent-light); /* Usamos el rosa pálido aquí */
-}
-
-.location-content, .location-map {
-    width: 50%;
-    min-height: 400px;
-}
-
-.location-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    text-align: center;
-}
-
-.location-title {
-    font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
-.directions-button {
-    display: inline-block;
-    background-color: var(--color-accent-1);
-    color: var(--color-white);
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    margin-top: 20px;
-    transition: transform 0.2s ease;
-}
-
-.directions-button:hover {
-    transform: scale(1.05);
-}
-
-.location-map iframe {
-    width: 100%;
-    height: 100%;
-}
-
-/* ------------------- */
-/* 7. RESPONSIVE       */
+/* 7. RESPONSIVE */
 /* ------------------- */
 @media (max-width: 992px) {
     .menu-toggle {
@@ -539,19 +592,25 @@ img {
     }
 
     .main-nav {
+        display: none;
+    }
+
+    .main-header .main-nav {
         position: fixed;
         top: 0;
         right: -100%;
         width: 70%;
         height: 100vh;
         background-color: var(--color-white);
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
         padding-top: 100px;
         transition: right 0.4s ease-in-out;
         z-index: 1000;
+        margin-top: 0;
     }
 
     .main-nav.is-active {
+        display: block;
         right: 0;
     }
 
@@ -564,13 +623,37 @@ img {
     .nav-links a {
         font-size: 1.5rem;
     }
-    .location-content, .location-map {
+
+    .nav-links a:hover::after {
+        background-color: var(--color-accent-strong);
+    }
+
+    .location-content,
+    .location-map {
         width: 100%;
         min-height: 300px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: none;
+    }
+
+    .dropdown.is-open .dropdown-menu {
+        display: block;
+        position: static;
+        transform: none;
+        box-shadow: none;
+        width: 100%;
+        padding: 10px 0 0 0;
+    }
+
+    .dropdown-menu li a {
+        text-align: center;
     }
 }
 
 @media (max-width: 768px) {
-    .section-title h2 { font-size: 2rem; }
-    .intro-text { font-size: 1rem; }
+    .section-title h2 {
+        font-size: 2rem;
+    }
 }
