@@ -2,10 +2,10 @@
 /* 1. VARIABLES Y GLOBALES*/
 /* ------------------- */
 :root {
-    --color-background: #EAC9C1;
+    --color-background: #ffffff;
     --color-text: #000000;
     --color-white: #FFFFFF;
-    --color-accent-1: #E53A7A; /* Rosa Festivo */
+    --color-accent-1: #EAC9C1; /* Rosa Festivo */
     --color-footer-bg: #1a1a1a; /* Un negro un poco más suave */
     --color-footer-text: #a0a0a0;
     --font-brand: 'Poppins', sans-serif;
@@ -61,50 +61,28 @@ img {
 /* ------------------- */
 /* 2. HEADER Y MENÚ MÓVIL */
 /* ------------------- */
+.main-header {
+    padding: 20px 5%;
+    border-bottom: 1px solid #eee;
+}
+
 .header-container {
     display: flex;
-    justify-content: space-between; /* Empuja el logo a la izq. y el menú a la der. */
-    align-items: center; /* <<< LA REGLA MÁS IMPORTANTE: ALINEA TODO VERTICALMENTE */
-    padding: 10px 5%; /* Un poco menos de padding vertical */
+    justify-content: space-between;
+    align-items: center;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-.logo-image {
-    max-width: 150px; /* Reducimos el tamaño para un look más refinado */
-}
-
-.main-nav {
-    display: block;
-}
-
-.nav-links {
-    list-style: none;
+.logo-container {
+    flex-grow: 1; /* Permite que el logo se centre */
     display: flex;
-    gap: 25px;
+    justify-content: center;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: var(--color-text);
-    font-weight: 700;
-    padding-bottom: 5px;
-    position: relative;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-accent-1);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
+.logo-image {
+    max-width: 120px; /* Reducimos aún más el tamaño */
+    margin-left: auto; /* Truco para centrar cuando el botón de hamburguesa está presente */
 }
 
 .menu-toggle {
@@ -116,27 +94,91 @@ img {
     height: 22px;
     position: relative;
     z-index: 1001;
+    margin-left: auto; /* Asegura que se alinee a la derecha */
 }
 
-.hamburger-icon,
-.hamburger-icon::before,
-.hamburger-icon::after {
+.main-nav {
+    display: block;
+    width: 100%;
+    margin-top: 15px; /* Espacio entre el logo y el menú */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 700;
+    padding-bottom: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-links a::after {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 3px;
-    background-color: var(--color-text);
-    border-radius: 5px;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent-1);
+    transition: width 0.3s ease;
 }
 
-.hamburger-icon { top: 10px; }
-.hamburger-icon::before { top: -10px; }
-.hamburger-icon::after { top: 10px; }
+.nav-links a:hover::after {
+    width: 100%;
+}
 
-.menu-toggle.is-active .hamburger-icon { background-color: transparent; }
-.menu-toggle.is-active .hamburger-icon::before { transform: translateY(10px) rotate(45deg); }
-.menu-toggle.is-active .hamburger-icon::after { transform: translateY(-10px) rotate(-45deg); }
+/* Estilos del Menú Desplegable */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-white);
+    list-style: none;
+    padding: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 200px; /* Ancho del menú desplegable */
+    z-index: 1100;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block; /* Se muestra al pasar el mouse */
+}
+
+.dropdown-menu li a {
+    padding: 10px 20px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.dropdown-menu li a::after {
+    display: none; /* Quitamos el efecto de línea en el submenú */
+}
+
+.dropdown-toggle .fa-chevron-down {
+    font-size: 0.7em;
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-toggle .fa-chevron-down {
+    transform: rotate(180deg);
+}
 
 /* ------------------- */
 /* 3. HERO CAROUSEL    */
@@ -144,7 +186,7 @@ img {
 .hero-section {
     position: relative;
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     color: var(--color-white);
 }
 
@@ -216,6 +258,12 @@ img {
 /* ------------------- */
 .category-showcase {
     padding: 80px 5%;
+    position: relative; /* <<< AÑADIDO: Necesario para que funcione el z-index */
+    z-index: 5; /* <<< AÑADIDO: Asegura que esté por encima del carrusel */
+    margin-top: -100px; /* <<< AÑADIDO: Sube la sección para que se monte sobre el hero */
+    background-color: var(--color-background); /* <<< AÑADIDO: Asegura que tenga fondo propio */
+    border-top-left-radius: 40px; /* <<< AÑADIDO: Curva la esquina superior izquierda */
+    border-top-right-radius: 40px; /* <<< AÑADIDO: Curva la esquina superior derecha */
 }
 
 .category-grid {
@@ -278,6 +326,13 @@ img {
 /* ------------------- */
 /* 5. VIDEO SHOWCASE (NUEVA VERSIÓN) */
 /* ------------------- */
+
+.video-showcase {
+    padding: 80px 5%;
+    background-color: rgba(0,0,0,0.05);
+    margin-bottom: 80px;
+}
+
 .video-showcase .swiper {
     width: 100%;
     max-width: 400px; /* Ancho máximo para el formato vertical, como en un móvil */
@@ -425,6 +480,57 @@ img {
 }
 
 /* ------------------- */
+/* 6. SECCIÓN DE UBICACIÓN */    
+/* ------------------- */
+.location-section {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--color-accent-light); /* Usamos el rosa pálido aquí */
+}
+
+.location-content, .location-map {
+    width: 50%;
+    min-height: 400px;
+}
+
+.location-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.location-title {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.directions-button {
+    display: inline-block;
+    background-color: var(--color-accent-1);
+    color: var(--color-white);
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 20px;
+    transition: transform 0.2s ease;
+}
+
+.directions-button:hover {
+    transform: scale(1.05);
+}
+
+.location-map iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------------- */
 /* 7. RESPONSIVE       */
 /* ------------------- */
 @media (max-width: 992px) {
@@ -458,10 +564,13 @@ img {
     .nav-links a {
         font-size: 1.5rem;
     }
+    .location-content, .location-map {
+        width: 100%;
+        min-height: 300px;
+    }
 }
 
 @media (max-width: 768px) {
     .section-title h2 { font-size: 2rem; }
     .intro-text { font-size: 1rem; }
 }
-
