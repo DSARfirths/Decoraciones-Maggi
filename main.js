@@ -49,6 +49,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 mainMenu.classList.toggle('is-active');
                 menuToggle.classList.toggle('is-active');
             });
+            // Lógica para el submenú desplegable en móvil
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            if (dropdownToggle) {
+                dropdownToggle.addEventListener('click', (event) => {
+                    // Solo activa esto si el menú móvil está visible
+                    if (window.innerWidth <= 992) {
+                        event.preventDefault(); // Evita que el enlace '#' navegue
+                        const dropdown = dropdownToggle.parentElement;
+                        dropdown.classList.toggle('is-open');
+                    }
+                });
+            }
         }
     };
     

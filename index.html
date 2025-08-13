@@ -70,7 +70,7 @@
             <h2 class="section-title">Nuestras Especialidades</h2>
             <div class="category-grid">
                 <a href="matrimonios.html" class="category-card">
-                    <img src="assets/img/cat-matrimonios.jpg" alt="Categoría Matrimonios" />
+                    <img src="assets/img/arreglo-velas.jpeg" alt="Categoría Matrimonios" />
                     <div class="category-card-title">
                         <h3>Matrimonios</h3>
                     </div>
@@ -88,7 +88,7 @@
                     </div>
                 </a>
                 <a href="tematicos.html" class="category-card">
-                    <img src="assets/img/cat-tematicos.jpg" alt="Categoría Eventos Temáticos" />
+                    <img src="assets/img/arreglo tematicos niño azul.jpg" alt="Categoría Eventos Temáticos" />
                     <div class="category-card-title">
                         <h3>Temáticos</h3>
                     </div>
@@ -288,23 +288,25 @@
             });
 
             // Lógica para los botones de sonido
-            document.querySelectorAll(".unmute-button").forEach((button) => {
-                button.addEventListener("click", (e) => {
+            document.querySelectorAll('.unmute-button').forEach(button => {
+                button.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const video = button
-                        .closest(".video-card")
-                        .querySelector(".tiktok-video");
-                    const icon = button.querySelector("i");
+                    const video = button.closest('.video-card').querySelector('.tiktok-video');
+                    const icon = button.querySelector('i');
 
-                    video.muted = !video.muted; // Alterna el sonido
-
+                    // Intenta reproducir el video (esto es clave para la primera interacción)
+                    video.play();
+                    
+                    // Alterna el sonido
+                    video.muted = !video.muted;
+                    
                     // Cambia el icono según el estado del sonido
                     if (video.muted) {
-                        icon.classList.remove("fa-volume-high");
-                        icon.classList.add("fa-volume-xmark");
+                        icon.classList.remove('fa-volume-high');
+                        icon.classList.add('fa-volume-xmark');
                     } else {
-                        icon.classList.remove("fa-volume-xmark");
-                        icon.classList.add("fa-volume-high");
+                        icon.classList.remove('fa-volume-xmark');
+                        icon.classList.add('fa-volume-high');
                     }
                 });
             });

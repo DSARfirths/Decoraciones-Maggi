@@ -641,14 +641,17 @@ img {
     .dropdown.is-open .dropdown-menu {
         display: block;
         position: static;
-        transform: none;
         box-shadow: none;
         width: 100%;
-        padding: 10px 0 0 0;
+        background-color: #f8f8f8;
+        padding: 10px 0 10px 30px;
+        transform: none;
     }
 
     .dropdown-menu li a {
-        text-align: center;
+        text-align: left; /* Alineamos a la izquierda en móvil */
+        padding: 8px 20px;
+        font-size: 1.2rem;
     }
 }
 
