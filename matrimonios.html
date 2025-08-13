@@ -10,7 +10,9 @@
     <link rel="icon" type="image/png" href="assets/img/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;700;900&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;700;900&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 
@@ -33,7 +35,11 @@
                         <h3>Escenario Principal</h3>
                         <p class="item-description">Fondo elegante con telas y luces para la mesa de honor.</p>
                         <span class="item-code">COD: MAT-001</span>
-                        <a href="https://api.whatsapp.com/send?phone=51977480730&text=Hola, quisiera consultar sobre el servicio con código: MAT-001" class="cta-button-small" target="_blank">Consultar Precio</a>
+                        <div class="gallery-item-buttons">
+                            <a href="https://api.whatsapp.com/send?phone=51977480730&text=Hola, quisiera consultar sobre el servicio con código: MAT-001"
+                                class="cta-button-small" target="_blank">Consultar Precio</a>
+                            <button class="view-image-button"><i class="fas fa-search-plus"></i> Ver Imagen</button>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item item-portrait">
@@ -42,7 +48,11 @@
                         <h3>Entrada a Iglesia</h3>
                         <p class="item-description">Arcos florales y camino de pétalos para una bienvenida soñada.</p>
                         <span class="item-code">COD: MAT-003</span>
-                        <a href="https://api.whatsapp.com/send?phone=51977480730&text=Hola, quisiera consultar sobre el servicio con código: MAT-003" class="cta-button-small" target="_blank">Consultar Precio</a>
+                        <div class="gallery-item-buttons">
+                            <a href="https://api.whatsapp.com/send?phone=51977480730&text=Hola, quisiera consultar sobre el servicio con código: MAT-003"
+                                class="cta-button-small" target="_blank">Consultar Precio</a>
+                            <button class="view-image-button"><i class="fas fa-search-plus"></i> Ver Imagen</button>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item item-square">
@@ -51,25 +61,39 @@
                         <h3>Mesa de Invitados</h3>
                         <p class="item-description">Centros de mesa florales y menaje de lujo.</p>
                         <span class="item-code">COD: MAT-002</span>
-                        <a href="https://api.whatsapp.com/send?phone=51977480730&text=Hola, quisiera consultar sobre el servicio con código: MAT-002" class="cta-button-small" target="_blank">Consultar Precio</a>
+                        <div class="gallery-item-buttons">
+                            <a href="https://api.whatsapp.com/send?phone=51977480730&text=Hola, quisiera consultar sobre el servicio con código: MAT-002"
+                                class="cta-button-small" target="_blank">Consultar Precio</a>
+                            <button class="view-image-button"><i class="fas fa-search-plus"></i> Ver Imagen</button>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item item-square">
-                    <img src="assets/img/Entrada con arco de plantas y camino luminoso.jpeg" alt="Camino luminoso a recepción">
+                    <img src="assets/img/Entrada con arco de plantas y camino luminoso.jpeg"
+                        alt="Camino luminoso a recepción">
                     <div class="gallery-item-overlay">
                         <h3>Camino Luminoso</h3>
                         <p class="item-description">Crea un ambiente mágico con luces cálidas en la entrada.</p>
                         <span class="item-code">COD: MAT-005</span>
-                        <a href="https://api.whatsapp.com/send?phone=51977480730&text=Hola, quisiera consultar sobre el servicio con código: MAT-005" class="cta-button-small" target="_blank">Consultar Precio</a>
+                        <div class="gallery-item-buttons">
+                            <a href="https://api.whatsapp.com/send?phone=51977480730&text=Hola, quisiera consultar sobre el servicio con código: MAT-005"
+                                class="cta-button-small" target="_blank">Consultar Precio</a>
+                            <button class="view-image-button"><i class="fas fa-search-plus"></i> Ver Imagen</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
+
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-image" id="lightbox-img">
+    </div>
 
     <footer id="main-footer-placeholder"></footer>
 
     <script src="main.js" defer></script>
 </body>
+
 </html>

@@ -1,90 +1,90 @@
-// main.js
-
-/**
- * --- Fase 1: Carga de Componentes Reutilizables ---
- * Este código se ejecuta cuando el contenido principal de la página (DOM) está listo.
- */
-document.addEventListener('DOMContentLoaded', function () {
-
-    // --- 1. CARGADOR DE HEADER Y FOOTER ---
-    
-    /**
-     * Función genérica para cargar un componente HTML en un elemento de la página.
-     * @param {string} url - La ruta al archivo HTML del componente (ej. 'header.html').
-     * @param {string} elementId - El ID del contenedor donde se insertará el HTML.
-     * @returns {Promise} - Una promesa que se resuelve cuando el componente se ha cargado.
-     */
-    const loadComponent = (url, elementId) => {
-        return fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`No se pudo cargar el componente: ${url}`);
-                }
-                return response.text();
-            })
-            .then(data => {
-                const element = document.getElementById(elementId);
-                if (element) {
-                    element.innerHTML = data;
-                } else {
-                    console.error(`El elemento con ID '${elementId}' no fue encontrado.`);
-                }
-            })
-            .catch(error => console.error(error));
-    };
-
-    // --- 2. INICIALIZACIÓN DE FUNCIONALIDADES ---
-
-    /**
-     * Inicializa la funcionalidad del menú móvil (hamburguesa).
-     * Esta función DEBE llamarse DESPUÉS de que el header se haya cargado.
-     */
-    const initializeMobileMenu = () => {
-        const menuToggle = document.getElementById('menu-toggle');
-        const mainMenu = document.getElementById('main-menu');
-
-        if (menuToggle && mainMenu) {
-            menuToggle.addEventListener('click', () => {
-                // Alterna la clase 'is-active' para mostrar/ocultar el menú con CSS
-                mainMenu.classList.toggle('is-active');
-                menuToggle.classList.toggle('is-active');
-            });
-            // Lógica para el submenú desplegable en móvil
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            if (dropdownToggle) {
-                dropdownToggle.addEventListener('click', (event) => {
-                    // Solo activa esto si el menú móvil está visible
-                    if (window.innerWidth <= 992) {
-                        event.preventDefault(); // Evita que el enlace '#' navegue
-                        const dropdown = dropdownToggle.parentElement;
-                        dropdown.classList.toggle('is-open');
-                    }
-                });
-            }
+document.addEventListener("DOMContentLoaded", function () {
+  // --- 1. CARGADOR DE COMPONENTES ---
+  const loadComponent = (url, elementId) => {
+    return fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`No se pudo cargar: ${url}`);
         }
-    };
-    
-    /**
-     * Actualiza el año del copyright en el footer al año actual.
-     */
-    const updateCopyrightYear = () => {
-        const yearSpan = document.getElementById('copyright-year');
-        if(yearSpan) {
-            // El año actual es 2025
-            yearSpan.textContent = new Date().getFullYear(); 
+        return response.text();
+      })
+      .then((data) => {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.innerHTML = data;
         }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  // --- 2. INICIALIZACIÓN DE FUNCIONALIDADES ---
+  const initializeMobileMenu = () => {
+    const menuToggle = document.getElementById("menu-toggle");
+    const mainMenu = document.getElementById("main-menu");
+    if (menuToggle && mainMenu) {
+      menuToggle.addEventListener("click", () => {
+        mainMenu.classList.toggle("is-active");
+        menuToggle.classList.toggle("is-active");
+      });
+      const dropdownToggle = document.querySelector(".dropdown-toggle");
+      if (dropdownToggle) {
+        dropdownToggle.addEventListener("click", (event) => {
+          if (window.innerWidth <= 992) {
+            event.preventDefault();
+            dropdownToggle.parentElement.classList.toggle("is-open");
+          }
+        });
+      }
     }
+  };
 
+  const updateCopyrightYear = () => {
+    const yearSpan = document.getElementById("copyright-year");
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+  };
 
-    // --- 3. EJECUCIÓN ---
-    // Cargamos el header y, UNA VEZ CARGADO, inicializamos el menú móvil.
-    loadComponent('header.html', 'main-header-placeholder').then(() => {
-        initializeMobileMenu();
+  // --- NUEVA FUNCIÓN PARA EL LIGHTBOX ---
+  const initializeLightbox = () => {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeButton = document.querySelector(".lightbox-close");
+    const viewButtons = document.querySelectorAll(".view-image-button");
+
+    if (!lightbox || !lightboxImg || !closeButton) return;
+
+    viewButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const galleryItem = button.closest(".gallery-item");
+        const imageSrc = galleryItem.querySelector("img").src;
+        lightboxImg.src = imageSrc;
+        lightbox.classList.add("is-visible");
+      });
     });
 
-    // Cargamos el footer y, UNA VEZ CARGADO, actualizamos el año del copyright.
-    loadComponent('footer.html', 'main-footer-placeholder').then(() => {
-        updateCopyrightYear();
-    });
+    const closeLightbox = () => {
+      lightbox.classList.remove("is-visible");
+    };
 
+    closeButton.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      // Cierra solo si se hace clic en el fondo, no en la imagen
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+  };
+
+  // --- 3. EJECUCIÓN ---
+  loadComponent("header.html", "main-header-placeholder").then(() => {
+    initializeMobileMenu();
+  });
+
+  loadComponent("footer.html", "main-footer-placeholder").then(() => {
+    updateCopyrightYear();
+  });
+
+  // Se inicializa el lightbox después de que todo el DOM esté listo
+  initializeLightbox();
 });
