@@ -660,3 +660,130 @@ img {
         font-size: 2rem;
     }
 }
+
+/* ------------------- */
+/* 8. CABECERA DE CATEGORÍA */
+/* ------------------- */
+.category-header {
+    padding: 60px 5%;
+    background-color: var(--color-accent-1); /* Usamos el rosa pálido */
+    text-align: center;
+}
+
+.category-header h1 {
+    font-family: var(--font-brand);
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.category-header p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 10px auto 0;
+}
+
+/* ------------------- */
+/* 9. GALERÍA DE REVISTA */
+/* ------------------- */
+.gallery-section {
+    padding: 80px 5%;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 250px; /* Altura base de cada "celda" de la grilla */
+    gap: 20px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+/* Modificadores de tamaño para el look de revista */
+.gallery-item.item-large {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+.gallery-item.item-wide {
+    grid-column: span 2;
+}
+.gallery-item.item-tall {
+    grid-row: span 2;
+}
+
+/* Overlay que aparece al pasar el mouse */
+.gallery-item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.1));
+    color: var(--color-white);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Alinea el contenido abajo */
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover .gallery-item-overlay {
+    opacity: 1;
+}
+.gallery-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.8);
+}
+
+.gallery-item-overlay h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.gallery-item-overlay .item-description {
+    font-weight: 300;
+    margin: 5px 0 15px;
+}
+.gallery-item-overlay .item-code {
+    font-weight: 700;
+    background-color: rgba(255,255,255,0.2);
+    padding: 3px 8px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.cta-button-small {
+    background-color: var(--color-accent-strong);
+    color: var(--color-white);
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    align-self: flex-start; /* Se alinea a la izquierda */
+    transition: transform 0.2s ease;
+}
+.cta-button-small:hover {
+    transform: scale(1.05);
+}
+
+/* Ajustes para móvil */
+@media (max-width: 768px) {
+    .gallery-item.item-large,
+    .gallery-item.item-wide,
+    .gallery-item.item-tall {
+        grid-column: span 1; /* En móvil, todos los items ocupan 1 columna */
+        grid-row: span 1;
+    }
+}
