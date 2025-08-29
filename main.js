@@ -125,85 +125,130 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   const initializeVideoCarousel = () => {
-    const videoShowcase = document.querySelector('.video-showcase');
-    if (!videoShowcase || typeof Swiper === 'undefined') return;
-
-    const videoSwiper = new Swiper(".video-swiper", {
-      effect: "coverflow",
-      grabCursor: true,
-      centeredSlides: true,
-      slidesPerView: "auto",
-      coverflowEffect: {
-        rotate: 0,
-        stretch: 0,
-        depth: 100,
-        modifier: 2,
-        slideShadows: false,
-      },
-      loop: true,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
-
-    const videos = videoShowcase.querySelectorAll('.tiktok-video');
-
-    const handlePlayback = (action) => {
-      if (action === 'play') {
-        const activeSlide = videoSwiper.slides[videoSwiper.activeIndex];
-        const activeVideo = activeSlide.querySelector('.tiktok-video');
-        if (activeVideo) {
-          activeVideo.play().catch(() => {});
-        }
-      } else { // 'pause'
-        videos.forEach(video => video.pause());
-      }
-    };
-
-    videoSwiper.on('slideChange', () => {
-      videos.forEach(video => {
-        video.pause();
-        if (!video.muted) {
-          video.muted = true;
-          const icon = video.closest('.video-card').querySelector('.unmute-button i');
-          if (icon) {
-            icon.classList.remove('fa-volume-high');
-            icon.classList.add('fa-volume-xmark');
+      const videoShowcase = document.querySelector('.video-showcase');
+      if (!videoShowcase || typeof Swiper === 'undefined') return;
+  
+      const videoSwiper = new Swiper(".video-swiper", {
+          effect: "coverflow",
+          grabCursor: true,
+          centeredSlides: true,
+          slidesPerView: "auto",
+          coverflowEffect: {
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 2,
+              slideShadows: false,
+          },
+          loop: true,
+          navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+          },
+      });
+  
+      const videoCards = videoShowcase.querySelectorAll('.video-card');
+  
+      const updateVideoState = (video) => {
+          const card = video.closest('.video-card');
+          const playPauseIcon = card.querySelector('.play-pause-button i');
+          if (!card || !playPauseIcon) return;
+  
+          if (video.paused) {
+              card.classList.add('is-paused');
+              playPauseIcon.classList.remove('fa-pause');
+              playPauseIcon.classList.add('fa-play');
+          } else {
+              card.classList.remove('is-paused');
+              playPauseIcon.classList.remove('fa-play');
+              playPauseIcon.classList.add('fa-pause');
           }
-        }
+      };
+  
+      const togglePlayPause = (video) => {
+          if (video.paused) {
+              video.play().catch(() => {});
+          } else {
+              video.pause();
+          }
+      };
+  
+      videoCards.forEach(card => {
+          const video = card.querySelector('.tiktok-video');
+          const overlay = card.querySelector('.video-card-overlay');
+          const playPauseBtn = card.querySelector('.play-pause-button');
+          const progressBar = card.querySelector('.video-progress-bar');
+          const progressBarFill = card.querySelector('.video-progress-fill');
+  
+          if (!video) return;
+  
+          video.addEventListener('play', () => {
+              updateVideoState(video);
+              video.muted = false; // Activa el sonido al reproducir
+          });
+  
+          video.addEventListener('pause', () => {
+              updateVideoState(video);
+              video.muted = true; // Silencia al pausar
+          });
+  
+          video.addEventListener('timeupdate', () => {
+              if (progressBarFill && video.duration) {
+                  const progress = (video.currentTime / video.duration) * 100;
+                  progressBarFill.style.width = `${progress}%`;
+              }
+          });
+  
+          video.addEventListener('ended', () => {
+              if (progressBarFill) progressBarFill.style.width = '0%';
+          });
+  
+          if (overlay) overlay.addEventListener('click', () => togglePlayPause(video));
+          if (playPauseBtn) {
+              playPauseBtn.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  togglePlayPause(video);
+              });
+          }
+
+          // Añadir evento de clic a la barra de progreso para buscar
+          if (progressBar) {
+              progressBar.addEventListener('click', (e) => {
+                  if (video.duration) {
+                      const barWidth = progressBar.clientWidth;
+                      video.currentTime = (e.offsetX / barWidth) * video.duration;
+                  }
+              });
+          }
+  
+          updateVideoState(video);
       });
-      handlePlayback('play');
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        handlePlayback(entry.isIntersecting ? 'play' : 'pause');
-      });
-    }, { threshold: 0.5 });
-
-    observer.observe(videoShowcase);
-
-    document.querySelectorAll('.unmute-button').forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const video = button.closest('.video-card').querySelector('.tiktok-video');
-        const icon = button.querySelector('i');
-        if (!video || !icon) return;
-
-        video.muted = !video.muted;
-
-        if (video.muted) {
-          icon.classList.remove('fa-volume-high');
-          icon.classList.add('fa-volume-xmark');
-        } else {
-          icon.classList.remove('fa-volume-xmark');
-          icon.classList.add('fa-volume-high');
-          video.play().catch(() => {});
-        }
-      });
-    });
+  
+      const handlePlayback = (action) => {
+          const activeSlide = videoSwiper.slides[videoSwiper.activeIndex];
+          const activeVideo = activeSlide.querySelector('.tiktok-video');
+  
+          videoCards.forEach(card => {
+              const video = card.querySelector('.tiktok-video');
+              if (video && video !== activeVideo) video.pause();
+          });
+  
+          if (action === 'play' && activeVideo) {
+              activeVideo.play().catch(() => {});
+          } else if (activeVideo) {
+              activeVideo.pause();
+          }
+      };
+  
+      videoSwiper.on('slideChange', () => handlePlayback('play'));
+  
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => handlePlayback(entry.isIntersecting ? 'play' : 'pause'));
+      }, { threshold: 0.5 });
+  
+      observer.observe(videoShowcase);
   };
+
 
   // --- 3. EJECUCIÓN ---
   loadComponent("header.html", "main-header-placeholder").then(() => {

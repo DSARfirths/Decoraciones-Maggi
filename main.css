@@ -575,6 +575,7 @@ img {
     justify-content: space-between;
     padding: 20px;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 40%, transparent 80%, rgba(0, 0, 0, 0.4) 100%);
+    cursor: pointer; /* Indica que el overlay es interactivo */
 }
 
 .unmute-button {
@@ -592,9 +593,61 @@ img {
     justify-content: center;
 }
 
+/* --- Botón de Play/Pausa --- */
+.play-pause-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none; /* No se puede hacer clic cuando está invisible */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+}
+
+.play-pause-button .fa-play {
+    margin-left: 4px; /* Ajuste visual para centrar el icono de play */
+}
+
+/* Mostrar el botón cuando el video está pausado */
+.video-card.is-paused .play-pause-button {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+}
+
 .video-card-cta {
     color: #fff;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.video-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 5;
+    cursor: pointer;
+}
+
+.video-progress-fill {
+    width: 0;
+    height: 100%;
+    background-color: var(--color-accent-strong);
+    /* Usamos una transición corta para que la barra no se sienta lenta */
+    transition: width 0.05s linear;
 }
 
 .video-card-cta h4 {
