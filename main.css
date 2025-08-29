@@ -29,6 +29,7 @@ body {
     background-color: var(--color-background);
     color: var(--color-text);
     line-height: 1.6;
+    padding-top: 90px; 
 }
 
 img {
@@ -65,14 +66,48 @@ img {
 /* ------------------- */
 /* 2. HEADER Y MENÚ MÓVIL (CORREGIDO) */
 /* ------------------- */
+/* --- Animación de entrada para el header --- */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .main-header {
-    padding: 20px 5%;
-    border-bottom: 1px solid #eee;
+    padding: 15px 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    /* Estado inicial transparente */
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    /* Transición suave para los cambios */
+    transition: background-color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease, transform 0.4s ease-in-out;
+}
+
+.main-header.is-scrolled {
+    /* Estado al hacer scroll con efecto de vidrio */
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Compatibilidad con Safari */
+    border-bottom: 1px solid rgba(238, 238, 238, 0.5);
+}
+
+.main-header.is-hidden {
+    /* Oculta el header deslizándolo hacia arriba */
+    transform: translateY(-100%);
 }
 
 .header-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -80,7 +115,7 @@ img {
 }
 
 .logo-image {
-    max-width: 120px;
+    max-width: 100px;
     margin: 0;
 }
 
@@ -99,28 +134,27 @@ img {
 }
 
 .main-nav {
-    display: block;
-    width: 100%;
-    margin-top: 15px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 40px;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: var(--color-text);
+    color: var(--color-white); /* Color inicial blanco para contraste sobre el hero */
     font-weight: 700;
     padding-bottom: 5px;
     position: relative;
     display: flex;
     align-items: center;
     gap: 5px;
+    transition: color 0.4s ease;
+    /* Sombra para legibilidad sobre imágenes */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .nav-links a::after {
@@ -145,9 +179,20 @@ img {
     position: absolute;
     width: 100%;
     height: 3px;
-    background-color: var(--color-text);
+    background-color: var(--color-white); /* Color inicial blanco */
     border-radius: 5px;
     transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* --- Colores de los elementos del header al hacer scroll --- */
+.main-header.is-scrolled .nav-links a {
+    color: var(--color-text);
+    text-shadow: none;
+}
+.main-header.is-scrolled .hamburger-icon,
+.main-header.is-scrolled .hamburger-icon::before,
+.main-header.is-scrolled .hamburger-icon::after {
+    background-color: var(--color-text);
 }
 
 .hamburger-icon {
@@ -179,11 +224,14 @@ img {
 }
 
 .dropdown-menu {
-    display: none;
+    /* Estado inicial: oculto y ligeramente desplazado hacia arriba */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     position: absolute;
     top: 120%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-10px);
     background-color: var(--color-white);
     list-style: none;
     padding: 10px 0;
@@ -191,16 +239,24 @@ img {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 200px;
     z-index: 1100;
+    /* Transición suave para la animación */
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
 }
 
 .dropdown:hover .dropdown-menu {
-    display: block;
+    /* Estado visible al pasar el mouse */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
 }
 
 .dropdown-menu li a {
     padding: 10px 20px;
     font-weight: 500;
     white-space: nowrap;
+    color: var(--color-text); /* Aseguramos texto oscuro sobre fondo blanco */
+    text-shadow: none; /* Quitamos la sombra de texto heredada */
 }
 
 .dropdown-menu li a::after {
@@ -216,10 +272,47 @@ img {
     transform: rotate(180deg);
 }
 
+/* --- Animaciones de carga para el menú de escritorio --- */
+@media (min-width: 993px) {
+    .logo-container {
+        opacity: 0;
+        animation: fadeInDown 0.5s ease-out 0.5s forwards;
+    }
+
+    .nav-links > li {
+        opacity: 0;
+        animation: fadeInDown 0.5s ease-out forwards;
+    }
+
+    .nav-links > li:nth-child(1) {
+        animation-delay: 0.7s;
+    }
+    .nav-links > li:nth-child(2) {
+        animation-delay: 0.8s;
+    }
+    .nav-links > li:nth-child(3) {
+        animation-delay: 0.9s;
+    }
+}
+
 /* ------------------- */
 /* 3. HERO CAROUSEL (CORREGIDO) */
 /* ------------------- */
+/* --- Keyframes para la animación de pulso del botón --- */
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
 .hero-section {
+    /* Anulamos el padding-top del body para que el hero ocupe toda la pantalla */
+    margin-top: -90px;
     position: relative;
     width: 100%;
     /* ESTA ES LA REGLA CLAVE: Altura mínima para desktop */
@@ -260,6 +353,13 @@ img {
     object-fit: cover;
     /* La imagen cubre todo el espacio sin deformarse */
     z-index: 1;
+    /* Añadimos una transición larga para el efecto de zoom */
+    transition: transform 8s ease-out;
+}
+
+/* Cuando la diapositiva está activa, aplicamos un zoom lento y sutil */
+.swiper-slide-active .hero-bg-img {
+    transform: scale(1.1);
 }
 
 /* Capa oscura sobre la imagen para legibilidad del texto */
@@ -281,6 +381,28 @@ img {
     padding: 20px;
 }
 
+/* --- Animación para el contenido del Hero --- */
+.hero-title,
+.hero-subtitle,
+.hero-cta {
+    /* Estado inicial: invisible y desplazado hacia abajo */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.swiper-slide-active .hero-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s; /* Aparece primero */
+}
+
+.swiper-slide-active .hero-subtitle {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s; /* Aparece después del título */
+}
+
 .hero-title {
     font-family: var(--font-brand);
     font-weight: 900;
@@ -296,6 +418,31 @@ img {
     margin-top: 10px;
     margin-bottom: 30px;
     max-width: 600px;
+}
+
+.hero-cta {
+    display: inline-block;
+    background-color: var(--color-accent-strong);
+    color: var(--color-white);
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: var(--font-brand);
+    font-weight: 700;
+    /* La transición ya está definida arriba */
+}
+
+.hero-cta:hover {
+    transform: scale(1.05) translateY(0); /* Mantenemos el translateY(0) para que no salte */
+}
+
+.swiper-slide-active .hero-cta {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.7s; /* Aparece al final */
+    /* Animación de pulso para llamar la atención */
+    animation: pulse-glow 2.5s infinite;
+    animation-delay: 1.5s; /* Inicia después de la animación de entrada */
 }
 
 .hero-swiper .swiper-pagination-bullet {
@@ -590,12 +737,14 @@ img {
     .menu-toggle {
         display: block;
     }
-
+    .header-container {
+        justify-content: center; /* Centramos el logo en móvil */
+    }
     .main-nav {
         display: none;
     }
 
-    .main-header .main-nav {
+    .main-nav { /* El selector .main-header .main-nav ya no es necesario que sea tan específico */
         position: fixed;
         top: 0;
         right: -100%;
@@ -635,23 +784,38 @@ img {
     }
 
     .dropdown:hover .dropdown-menu {
-        display: none;
+        /* Desactivamos el hover de escritorio en móvil */
+        display: none; 
+    }
+
+    /* Convertimos el submenú en un acordeón animado */
+    .dropdown .dropdown-menu {
+        display: block; /* Debe estar en el flujo del documento para animar la altura */
+        position: static;
+        transform: none;
+        width: 100%;
+        box-shadow: none;
+        background-color: #f8f8f8;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 10px 0 30px;
+        transition: max-height 0.4s ease-out, padding 0.4s ease-out;
     }
 
     .dropdown.is-open .dropdown-menu {
-        display: block;
-        position: static;
-        box-shadow: none;
-        width: 100%;
-        background-color: #f8f8f8;
+        max-height: 300px; /* Altura aprox. para 6 elementos */
         padding: 10px 0 10px 30px;
-        transform: none;
     }
 
     .dropdown-menu li a {
         text-align: left; /* Alineamos a la izquierda en móvil */
         padding: 8px 20px;
         font-size: 1.2rem;
+    }
+
+    /* Rotar la flecha en móvil al hacer clic */
+    .dropdown.is-open .dropdown-toggle .fa-chevron-down {
+        transform: rotate(180deg);
     }
 }
 
